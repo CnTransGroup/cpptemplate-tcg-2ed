@@ -1,0 +1,13 @@
+[book]
+authors = ["wendajiang"]
+language = "zh"
+multilingual = false
+src = "src"
+title = "Cpp Template: The Complate Guide - 2ed"
+
+[output.html]
+mathjax-support = true
+no-section-label = true
+
+# [output.pdf]
+
