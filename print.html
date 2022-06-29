@@ -146,25 +146,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="基本介绍"><a class="header" href="#基本介绍">基本介绍</a></h1>
-<p>本部分介绍了 C++ 模板的语言特征和基本概念。通过函数模板和类模板的例子来讨论一般的目标和概念。然后继续介绍一些高级的模板功能比如 nontype template parameters, 变长参数模板，typename 关键字，成员模板。同时也会讨论如何处理移动语义，如何生命参数，如何使用 generic code 来进行编译期编程。最后以库作者经常使用的 tips 来结尾。</p>
-<h2 id="为什么使用模板"><a class="header" href="#为什么使用模板">为什么使用模板</a></h2>
-<p>C++ 要求我们声明变量，函数，或者其他特定类型的 item。但是很多代码看起来只是不同类型的重复。比如，<em>快排</em>算法的实现适配到不同的数据结构（比如 array of int or vector of string 或者其他能够比较的类型）</p>
-<p>如果你使用的编程语言不支持元编程：</p>
-<ol>
-<li>你需要为不同的类型重复实现相同的行为</li>
-<li>你可以使用通用类型比如 <code>Object or void*</code> 实现通用代码</li>
-<li>你需要使用预处理器</li>
-</ol>
-<p>如果你只有其他编程语言的经验，你可能做过上述事情。但是每种方案都有其缺陷：</p>
-<ol>
-<li>如果你重复实现，代码复用性变低</li>
-<li>如果你在通用类型上实现通用代码，类型检查的优势就没了，类型可能本来有约束，但是代码标识丢失了这种信息</li>
-<li>如果使用预处理器，代码使用了某种“愚蠢的文本替换机制”，没有 scope 和 type 的概念，可能导致很难查的错误</li>
-</ol>
-<p>模板是规避上述问题的方案，模板可以给未指定的类型编写函数或者类。当你使用模板时，你将 type 作为参数，因为模板时语言特性，你获得了 scope 和 type 的全部支持。</p>
-<p>在现代编程中，模板无处不在。比如，在 C++ 标准库中几乎所有的代码都是模板代码。标准库提供了排序算法和容器。然而，这只是开始，模板可以特化行为，优化代码，参数化信息。这些应用在后面的章节探讨。首先让我们开始一个简单的模板。</p>
-<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div>
+                        <div style="break-before: page; page-break-before: always;"></div><h1 id="chapter-1"><a class="header" href="#chapter-1">Chapter 1</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
